@@ -5,9 +5,9 @@ struct list
     struct list *next;
 };
 
-struct list *search_tails(struct list *searched_list){//最後尾のlistまでたどる
+struct list *search_tails(struct list *searched_list , int number){//最後尾のlistまでたどる
     struct list *tmp = NULL;
-    while(*searched_list->next != nullptr){
+    for(int i=0;i<number;i++){
     tmp = searched_list->next;
     searched_list = tmp->next;
     }
@@ -26,7 +26,7 @@ int main(){
     std::cin >> data_size ;
     //listを指定した数だけ呼び出す
     for(int i=0;i<data_size;i++){
-        main_list = search_tails(first_list);
+        main_list = search_tails(first_list , data_size);
         set_list(main_list);
     }
     first_list->data = 1;//整数をセット

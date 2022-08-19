@@ -3,29 +3,36 @@ struct list
 {
     int data;
     struct list *next;
-    // struct list *previous;
+    struct list *previous;
 };
 struct list *search_tails(struct list *searched_list)
 { //最後尾のlistまでたどる
-    struct list *tmp ;
+    struct list *tmp = nullptr ;
             int i = 0;
-    while (1){
-        if(searched_list->next == NULL)break;
-        tmp = searched_list->next;
-        searched_list = tmp;
-        i++;
-        std::cout<<"aa";
+    while (searched_list->next != nullptr){
+        searched_list = searched_list->next;
+        std::cout <<"aaa";
     }
     return searched_list;
 }
-struct list *tukuru(struct list *tukuru_list , int count){
-    struct list *tmp;
-    tukuru_list->next = new list;
-    tmp = tukuru_list->next;
-    tmp->data = count;
-    tmp->next = NULL;
-    std::cout<<"tukutta";
-    return tmp;
+void next_tukuru(struct list *tukuru_list , int count){
+    struct list *tmp = new list;
+    tukuru_list->next = tmp;
+    tmp->data = count+1;
+    tmp->next = nullptr;
+    tmp->previous = tukuru_list;
+    tukuru_list->next = tmp;
+    std::cout <<":";
+}//データ入れられてない？
+void list_print(struct list *print_list){
+    struct list *tmp = nullptr;
+    while (print_list!=nullptr)
+    {
+        std::cout<<print_list->data;
+        tmp = print_list->next;
+        print_list = tmp;
+    }
+    
 }
 void kesu(struct list *kesu_list)
 {
@@ -35,19 +42,21 @@ void kesu(struct list *kesu_list)
 int main()
 {
     int data_size = 2;
-    struct list *first_list;
     struct list *main_list;
     struct list *tmp;
     // first_list->next = new list;
     // main_list = first_list;
     // delete main_list;
-    first_list->next = NULL;
+    struct  list *first_list = new list;
+    first_list->next = nullptr;
+    first_list->data = 0;
+    first_list->previous = nullptr;
     // listを指定した数だけ呼び出す
     for (int i = 0; i < data_size; i++){
         tmp = search_tails(first_list);
-        tmp = tukuru(tmp, i);
-        std::cout <<i <<"愁";
+        next_tukuru(tmp, i);
     }
+    list_print(first_list);
     for (int i = 0; i < data_size; i++){ //作ったlistを消す
         tmp = search_tails(first_list);
         kesu(tmp);

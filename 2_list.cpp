@@ -7,28 +7,26 @@ struct list
 };
 struct list *search_tails(struct list *searched_list)
 { //最後尾のlistまでたどる
-    struct list *tmp = nullptr ;
-            int i = 0;
+    struct list *tmp = nullptr;
+    int i = 0;
     while (searched_list->next != nullptr){
         searched_list = searched_list->next;
-        std::cout <<"aaa";
+        std::cout << searched_list->data;
     }
     return searched_list;
 }
 void next_tukuru(struct list *tukuru_list , int count){
     struct list *tmp = new list;
-    tukuru_list->next = tmp;
     tmp->data = count+1;
     tmp->next = nullptr;
     tmp->previous = tukuru_list;
     tukuru_list->next = tmp;
-    std::cout <<":";
 }//データ入れられてない？
 void list_print(struct list *print_list){
     struct list *tmp = nullptr;
     while (print_list!=nullptr)
     {
-        std::cout<<print_list->data;
+        std::cout<<"print"<<print_list->data;
         tmp = print_list->next;
         print_list = tmp;
     }
@@ -36,12 +34,11 @@ void list_print(struct list *print_list){
 }
 void kesu(struct list *kesu_list)
 {
-    std::cout << "delete";
     delete kesu_list;
 }
 int main()
 {
-    int data_size = 2;
+    int data_size = 3;
     struct list *main_list;
     struct list *tmp;
     // first_list->next = new list;
@@ -53,8 +50,8 @@ int main()
     first_list->previous = nullptr;
     // listを指定した数だけ呼び出す
     for (int i = 0; i < data_size; i++){
-        tmp = search_tails(first_list);
         next_tukuru(tmp, i);
+        tmp = search_tails(first_list);
     }
     list_print(first_list);
     for (int i = 0; i < data_size; i++){ //作ったlistを消す
